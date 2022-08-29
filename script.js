@@ -16,22 +16,22 @@ var questions = [
     {
         title: "JavaScript is a ______-side programming language",
         possibleAnswers: ['Client', 'Server', 'Both', 'None'],
-        correct: 'Both'
+        correct: 2
     },
     {
         title: "What do you put around string values?",
         possibleAnswers: ['Quotes', 'Brackets', 'Parentheses', 'Nothing'],
-        correct: 'Quotes'
+        correct: 0
     },
     {
         title: "What does Math.floor round to?",
         possibleAnswers: ['The nearest integer', 'Rounds up to the nearest integer', 'Rounds down to the nearest integer', 'Sets the number to 0'],
-        correct: 'Rounds down to the nearest integer'
+        correct: 2
     },
     {
         title: "When using .toUpperCase, what do you put at the end to execute the function?",
         possibleAnswers: ['.toUpperCase;', '.toUpperCase();', '.toUpperCase[];', '.toUpperCase{};'],
-        correct: 'toUpperCase();'
+        correct: 1
     },
 ];
 
@@ -53,7 +53,6 @@ function displayQuestion() {
         choiceButtons.setAttribute('value', choice);
         choiceButtons.textContent = i + choice;
         optionEl.onclick = nextQuestion;
-
         optionEl.appendChild(choiceButtons);
     });
 
