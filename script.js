@@ -15,12 +15,12 @@ var questions = [
     {
         title: "JavaScript is a ______-side programming language",
         possibleAnswers: ['Client', 'Server', 'Both', 'None'],
-        correct: ['Both']
+        correct: 2
     },
     {
         title: "What do you put around string values?",
         possibleAnswers: ['Quotes', 'Brackets', 'Parentheses', 'Nothing'],
-        correct: [0]
+        correct: 0
     },
     {
         title: "What does Math.floor round to?",
@@ -39,6 +39,8 @@ var cursor = 0;
 
 // starts quiz
 startButton.addEventListener('click', function () {
+    setTime()
+    timeEl.textContent = 'Time Left: 20 seconds'
     startEl.style.display = 'none';
     endEl.style.display = 'none';
     scoreEl.style.display = 'none';
@@ -51,11 +53,11 @@ function displayQuestion() {
     quizTitle.textContent = renderQuestion.title;
     optionEl.textContent = '';
     renderQuestion.possibleAnswers.forEach(function (choice, i) {
-        let choiceButtons = document.createElement('button');
-        choiceButtons.setAttribute('value', choice);
-        choiceButtons.textContent = choice;
-        optionEl.onclick = nextQuestion;
-        optionEl.appendChild(choiceButtons);
+        let choiceButton = document.createElement('button');
+        choiceButton.setAttribute('value', choice);
+        choiceButton.textContent = choice;
+        choiceButton.onclick = nextQuestion;
+        optionEl.appendChild(choiceButton);
     });
 
 };
@@ -67,7 +69,11 @@ function nextQuestion() {
     // } else {
     //     window.alert('Correct')
     // };
-    if (this.value == questions.correct) {
+    console.log(this.value);
+    var correct_answer = questions[indexQuestion].possibleAnswers[questions[indexQuestion].correct];
+    
+    console.log(correct_answer);
+    if (this.value === correct_answer) {
         window.alert('You got it right! Good job!')
     } else {
         window.alert('You got it wrong idiot')
@@ -90,7 +96,7 @@ var secondsLeft = 20
 function setTime() {
     var timerInterval = setInterval(function () {
         secondsLeft--;
-        timeEl.textContent = secondsLeft
+        timeEl.textContent = 'Time Left: ' + secondsLeft + ' seconds'
         if (secondsLeft === 0) {
             window.alert('Time ran out! You fail slowpoke');
             reset();
