@@ -8,6 +8,7 @@ var quizTitle = document.querySelector('#title');
 var optionEl = document.querySelector('#options');
 var timeEl =document.querySelector('#time');
 var scoreEl = document.querySelector('#score');
+var scorePageEl = document.querySelector('#scorepage');
 
 let indexQuestion = 0;
 // question array
@@ -44,10 +45,11 @@ startButton.addEventListener('click', function () {
     startEl.style.display = 'none';
     endEl.style.display = 'none';
     scoreEl.style.display = 'none';
+    scorePageEl.style.display='none';
     quizEl.style.display = 'block';
     displayQuestion();
 });
-
+// sets up quiz content for each question
 function displayQuestion() {
     let renderQuestion = questions[indexQuestion];
     quizTitle.textContent = renderQuestion.title;
@@ -61,35 +63,19 @@ function displayQuestion() {
     });
 
 };
-
+// checks to see if answer was correct, then cycles to next question
 function nextQuestion() {
-
-    // if (this.value !== questions.correct) {
-    //     window.alert('Wrong')
-    // } else {
-    //     window.alert('Correct')
-    // };
     console.log(this.value);
     var correct_answer = questions[indexQuestion].possibleAnswers[questions[indexQuestion].correct];
-    
     console.log(correct_answer);
     if (this.value === correct_answer) {
         window.alert('You got it right! Good job!')
     } else {
-        window.alert('You got it wrong idiot')
+        window.alert('You got it wrong.')
     };
     indexQuestion++
     displayQuestion();
 };
-
-function correction(response) {
-    if (response){
-        alert.innerText= 'Good';
-        window.alert('');
-    } else {
-        alert.innerText = 'Bad'
-    }
-}
 
 // timer function
 var secondsLeft = 20
@@ -108,10 +94,19 @@ function setTime() {
 
 // resets quiz
 function reset() {
-    window.location
-    
+    scorePageEl.style.display='none';
+    timeEl.textContent = 'none'
+    startEl.style.display = 'none';
+    endEl.style.display = 'none';
+    scoreEl.style.display = 'none';
+    quizEl.style.display = 'none';
 };
 
 submitScoreButton.addEventListener('click', function () {
-    reset();
+    scorePageEl.style.display='block';
+    timeEl.textContent = 'none'
+    startEl.style.display = 'block';
+    endEl.style.display = 'none';
+    scoreEl.style.display = 'none';
+    quizEl.style.display = 'none';
 });
