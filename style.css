@@ -30,3 +30,8 @@ body {
   row-gap: 1rem;
   
 }
+
+#score, #end , #scorepage{
+  display: none;
+}
+
