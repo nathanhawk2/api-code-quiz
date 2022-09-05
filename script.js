@@ -8,10 +8,10 @@ var quizTitle = document.querySelector('#title');
 var optionEl = document.querySelector('#options');
 var timeEl = document.querySelector('#time');
 var scoreEl = document.querySelector('#score');
-var scorePageEl = document.querySelector('#scorepage');
+var scorePageEl = document.querySelector('#scorePage');
 var timerInterval
 var highscore = 0
-var initEl = document.querySelector('#initials')
+var initEl = document.querySelector('#initials');
 
 let indexQuestion = 0;
 // question array
@@ -37,9 +37,9 @@ var questions = [
         correct: 1
     },
 ];
-console.log(questions)
 
 var cursor = 0;
+displayScores();
 
 // starts quiz
 startButton.addEventListener('click', function () {
@@ -47,6 +47,7 @@ startButton.addEventListener('click', function () {
     timeEl.textContent = 'Time Left: 20 seconds'
     startEl.style.display = 'none';
     quizEl.style.display = 'block';
+    scorePageEl.style.display = 'none';
     displayQuestion();
 });
 // sets up quiz content for each question
@@ -65,15 +66,13 @@ function displayQuestion() {
 };
 // checks to see if answer was correct, then cycles to next question
 function nextQuestion() {
-    console.log(this.value);
     var correct_answer = questions[indexQuestion].possibleAnswers[questions[indexQuestion].correct];
-    console.log(correct_answer);
     if (this.value === correct_answer) {
         window.alert('You got it right! Good job!')
         highscore++
     } else {
         window.alert('You got it wrong.')
-        secondsLeft-=3
+        secondsLeft -= 3
     };
     indexQuestion++
 
@@ -95,30 +94,36 @@ function setTime() {
             window.alert('Time ran out! You fail slowpoke');
             submitPage();
         }
-        
+
     }, 1000);
 };
 
-// resets quiz
-// function reset() {
-//     scorePageEl.style.display = 'none';
-//     timeEl.textContent = 'none'
-//     startEl.style.display = 'none';
-//     endEl.style.display = 'none';
-//     scoreEl.style.display = 'none';
-//     quizEl.style.display = 'none';
-// };
-
+// submit score button and high score display function
 submitScoreButton.addEventListener('click', function () {
-var endScoreInit = {
-    name: initEl.value,
-    score: highscore
-}
-localStorage.setItem('init-score', JSON.stringify(endScoreInit))
+    var endScoreInit = {
+        name: initEl.value,
+        score: highscore
+    }
+    localStorage.setItem('init-score', JSON.stringify(endScoreInit))
+    displayScores();
+
 });
 
+function displayScores() {
+    var disScore = localStorage.getItem('init-score');
+    // disScore = JSON.parse(disScore);
+    // console.log(disScore)
+    // console.log(disScore.length)
+
+    var gridScore = document.createElement('div');
+    gridScore.textContent = disScore
+    scorePageEl.appendChild(gridScore);
+    console.log(gridScore)
+
+};
+
 function submitPage() {
-    scorePageEl.style.display='block';
+    scorePageEl.style.display = 'block';
     timeEl.textContent = 'none'
     startEl.style.display = 'none';
     endEl.style.display = 'block';
@@ -128,4 +133,3 @@ function submitPage() {
     timeEl.style.display = 'none';
 }
 
-//  pull info from storage and then use for loop to create divs that show the scores
